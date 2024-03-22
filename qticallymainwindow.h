@@ -2,6 +2,11 @@
 #define QTICALLYMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
+#include <QFileDialog>
+#include <QFileDialog>
+#include <QListWidget>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QticallyMainWindow; }
@@ -11,11 +16,48 @@ class QticallyMainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
+public :
     QticallyMainWindow(QWidget *parent = nullptr);
     ~QticallyMainWindow();
 
+public slots :
+    void addMusic();
+    void playSelectedMusic();
+
+
 private:
     Ui::QticallyMainWindow *ui;
+    QMediaPlayer *player;
+    QListWidget *musicList;
+    QSlider *musicSlider;
+    QLabel *musicImageLabel;
+    QLabel *timeElapsedLabel;
+    QLabel *totalTimeLabel;
+    QPushButton *repeatButton;
+    QPushButton *shuffleButton;
+    bool repeatEnabled;
+    bool shuffleEnabled;
+    QLabel *musicNameLabel;
+    QMap<QString, QString> musicMap;
+
+
+
+
+private slots:
+    void playMusic();
+    void pauseMusic();
+    void nextMusic();
+    void previousMusic();
+    void updateSliderPosition();
+    void changeMusicImage();
+    void updateTimeLabels();
+    void toggleRepeat();
+    void toggleShuffle();
+    void handleMediaStatusChanged(QMediaPlayer::MediaStatus status);
+
+
+
 };
+
+
 #endif // QTICALLYMAINWINDOW_H
