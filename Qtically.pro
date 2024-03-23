@@ -13,13 +13,16 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    qticallymainwindow.cpp
+    qticallymainwindow.cpp \
+    settingsdialog.cpp
 
 HEADERS += \
-    qticallymainwindow.h
+    qticallymainwindow.h \
+    settingsdialog.h
 
 FORMS += \
-    qticallymainwindow.ui
+    qticallymainwindow.ui \
+    settingsdialog.ui
 
 TRANSLATIONS += \
     Qtically_fr_FR.ts

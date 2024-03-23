@@ -23,6 +23,10 @@ public :
 public slots :
     void addMusic();
     void playSelectedMusic();
+    void updateMusicName(const QString &oldName, const QString &newName);
+    void updateMusicImage(const QString &musicName, const QPixmap &newImage);
+    void deleteSelectedMusic();
+
 
 
 private:
@@ -39,23 +43,34 @@ private:
     bool shuffleEnabled;
     QLabel *musicNameLabel;
     QMap<QString, QString> musicMap;
+    QMap<QString, QPixmap> musicImageMap;
+    QMap<QString, QPixmap> customMusicImageMap;
+    QString selectedMusicName;
+    QPixmap selectedMusicImage;
+    int prevIndex;
+    bool isPlaying;
+    QMenu *contextMenu;
+
 
 
 
 
 private slots:
     void playMusic();
-    void pauseMusic();
     void nextMusic();
     void previousMusic();
     void updateSliderPosition();
-    void changeMusicImage();
     void updateTimeLabels();
     void toggleRepeat();
     void toggleShuffle();
     void handleMediaStatusChanged(QMediaPlayer::MediaStatus status);
+    void showSettingsDialog();
+    void importPlaylist();
 
 
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 };
 

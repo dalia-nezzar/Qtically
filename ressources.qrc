@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/images">
         <file>images/OIP.jpeg</file>
+        <file>images/repeat.png</file>
+        <file>images/shuffle.png</file>
+        <file>images/settings.png</file>
+        <file>images/next.png</file>
+        <file>images/previous.png</file>
+        <file>images/play.png</file>
+        <file>images/pause.png</file>
     </qresource>
 </RCC>
