@@ -50,6 +50,7 @@ private:
     int prevIndex;
     bool isPlaying;
     QMenu *contextMenu;
+    QString selectedMusicImagePath;
 
 
 

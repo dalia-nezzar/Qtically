@@ -97,20 +97,17 @@ void QticallyMainWindow::showSettingsDialog()
     if (dialog.exec() == QDialog::Accepted) {
         QString newMusicName = dialog.getMusicName();
         QPixmap newImage = dialog.getImage();
-
-        updateMusicName(selectedMusicName, newMusicName);
         updateMusicImage(newMusicName, newImage);
-
-        selectedMusicName = newMusicName;
         selectedMusicImage = newImage;
 
+        updateMusicName(selectedMusicName, newMusicName);
+        selectedMusicName = newMusicName;
 
         musicList->currentItem()->setText(newMusicName);
-        selectedMusicName = newMusicName;
         musicNameLabel->setText(newMusicName);
-
     }
 }
+
 
 
 
@@ -151,12 +148,11 @@ void QticallyMainWindow::playSelectedMusic()
 {
     if (musicList->currentItem())
     {
+        QString musicName = musicList->currentItem()->text();
         QString filePath = musicList->currentItem()->data(Qt::UserRole).toString();
-        QFileInfo fileInfo(filePath);
-        QString musicName = fileInfo.fileName();
         player->setMedia(QUrl::fromLocalFile(filePath));
         player->play();
-        musicNameLabel->setText(QFileInfo(musicName).completeBaseName());
+        musicNameLabel->setText(musicName);
 
         QPixmap image;
         if (customMusicImageMap.contains(musicName)) {
@@ -175,6 +171,7 @@ void QticallyMainWindow::playSelectedMusic()
         ui->pushButton_edit->setEnabled(true);
     }
 }
+
 
 
 
@@ -268,6 +265,7 @@ void QticallyMainWindow::updateMusicName(const QString &oldName, const QString &
         musicNameLabel->setText(newName);
     }
 
+    // Mettre à jour la carte musicMap avec le nouveau nom de musique
     QMap<QString, QString>::iterator it = musicMap.begin();
     while (it != musicMap.end()) {
         if (it.value().endsWith(oldName)) {
@@ -280,6 +278,19 @@ void QticallyMainWindow::updateMusicName(const QString &oldName, const QString &
         }
     }
 
+    // Mettre à jour également selectedMusicName si la musique sélectionnée est celle modifiée
+    if (selectedMusicName == oldName) {
+        selectedMusicName = newName;
+    }
+
+    // Mettre à jour la musique personnalisée si elle existe
+    if (customMusicImageMap.contains(oldName)) {
+        QPixmap image = customMusicImageMap.value(oldName);
+        customMusicImageMap.remove(oldName);
+        customMusicImageMap.insert(newName, image);
+    }
+
+    // Mettre à jour la musique dans musicImageMap si elle existe
     QMap<QString, QPixmap>::iterator it2 = musicImageMap.begin();
     while (it2 != musicImageMap.end()) {
         if (it2.key().endsWith(oldName)) {
@@ -302,6 +313,9 @@ void QticallyMainWindow::updateMusicImage(const QString &musicName, const QPixma
     customMusicImageMap.insert(musicName, newImage);
     musicImageLabel->setPixmap(newImage.scaled(musicImageLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
+
+
+
 
 void QticallyMainWindow::importPlaylist()
 {
