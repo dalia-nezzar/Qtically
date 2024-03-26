@@ -26,6 +26,11 @@ public slots :
     void updateMusicName(const QString &oldName, const QString &newName);
     void updateMusicImage(const QString &musicName, const QPixmap &newImage);
     void deleteSelectedMusic();
+    void loadState(const QString &filename);
+    void saveState(const QString &filename);
+    void save();
+    void open();
+
 
 
 
@@ -51,6 +56,8 @@ private:
     bool isPlaying;
     QMenu *contextMenu;
     QString selectedMusicImagePath;
+    QPixmap defaultImage;
+
 
 
 

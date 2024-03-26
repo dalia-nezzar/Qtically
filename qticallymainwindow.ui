@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1091</width>
+    <width>1298</width>
     <height>663</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1091</width>
+    <width>1298</width>
     <height>663</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1091</width>
+    <width>1298</width>
     <height>663</height>
    </size>
   </property>
@@ -44,88 +44,13 @@
    <enum>QTabWidget::Triangular</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="musicImageLabel">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>150</y>
-      <width>250</width>
-      <height>250</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>250</width>
-      <height>250</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>250</width>
-      <height>250</height>
-     </size>
-    </property>
-    <property name="cursor">
-     <cursorShape>BusyCursor</cursorShape>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel#musicImageLabel {
-    border-radius: 50%;
-}
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="ressources.qrc">:/images/images/OIP.jpeg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="wordWrap">
-     <bool>false</bool>
-    </property>
-    <property name="openExternalLinks">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="AppName">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>20</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bubbler One</family>
-      <pointsize>22</pointsize>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="text">
-     <string>Qtically</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>17</x>
-      <y>120</y>
+      <x>30</x>
+      <y>10</y>
       <width>491</width>
-      <height>441</height>
+      <height>601</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -185,11 +110,11 @@
       <widget class="QListWidget" name="listWidget">
        <property name="styleSheet">
         <string notr="true">QListWidget {
-    border-radius: 10px;
-    background-color: #3A3A3A;
-    color: #E0E0E0;
-    selection-background-color: #6A5ACD;
-    selection-color: #E0E0E0;
+border-radius: 10px;
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #3A3A3A, stop: 1 #6A5ACD);
+color: #E0E0E0;
+selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6A5ACD, stop: 1 #8C78FF);
+selection-color: #E0E0E0;
 }
 
 QListWidget::item {
@@ -203,6 +128,31 @@ QListWidget::item {
 QListWidget::item:selected {
     background-color: #6A5ACD;
     color: #E0E0E0;
+}
+
+QScrollBar {
+background-color: #222222;
+width: 10px;
+margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+min-height: 20px;
+}
+
+QScrollBar::add-line {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+height: 10px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line {
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+height: 10px;
+subcontrol-position: top;
+subcontrol-origin: margin;
 }</string>
        </property>
       </widget>
@@ -212,7 +162,7 @@ QListWidget::item:selected {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>850</x>
+      <x>1080</x>
       <y>560</y>
       <width>131</width>
       <height>20</height>
@@ -257,7 +207,7 @@ QListWidget::item:selected {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>990</x>
+      <x>1220</x>
       <y>420</y>
       <width>45</width>
       <height>111</height>
@@ -343,9 +293,9 @@ QListWidget::item:selected {
    <widget class="QLabel" name="musicNameLabel">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>560</x>
       <y>60</y>
-      <width>501</width>
+      <width>711</width>
       <height>81</height>
      </rect>
     </property>
@@ -375,7 +325,7 @@ QListWidget::item:selected {
     </property>
     <property name="geometry">
      <rect>
-      <x>920</x>
+      <x>1070</x>
       <y>150</y>
       <width>41</width>
       <height>41</height>
@@ -407,9 +357,9 @@ QListWidget::item:selected {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>650</x>
       <y>420</y>
-      <width>381</width>
+      <width>561</width>
       <height>136</height>
      </rect>
     </property>
@@ -613,22 +563,99 @@ QSlider::sub-page:vertical {
      </item>
     </layout>
    </widget>
+   <widget class="QFrame" name="musicImageFrame">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>130</y>
+      <width>251</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#musicImageFrame {
+    border-radius: 125px;
+    background-color: transparent;
+}
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="musicImageLabel">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>250</width>
+       <height>250</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>250</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>250</width>
+       <height>250</height>
+      </size>
+     </property>
+     <property name="cursor">
+      <cursorShape>BusyCursor</cursorShape>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel#musicImageLabel {
+    border-radius: 50%;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="ressources.qrc">:/images/images/OIP.jpeg</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1091</width>
+     <width>1298</width>
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFichier">
+   <widget class="QMenu" name="menuParametres">
     <property name="title">
-     <string>Fichier</string>
+     <string>Paramètres</string>
     </property>
    </widget>
-   <addaction name="menuFichier"/>
+   <addaction name="menuParametres"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

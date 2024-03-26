@@ -6,6 +6,13 @@
 #include <QTime>
 #include <QRandomGenerator>
 #include <QContextMenuEvent>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QMessageBox>
+#include <QBuffer>
+
 
 QticallyMainWindow::QticallyMainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,6 +60,8 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
 
     musicNameLabel = ui->musicNameLabel;
 
+    defaultImage = QPixmap(":/images/images/OIP.jpeg");
+
     connect(ui->pushButton_edit, &QPushButton::clicked, this, &QticallyMainWindow::showSettingsDialog);
 
     connect(ui->pushButton_import_playlist, &QPushButton::clicked, this, &QticallyMainWindow::importPlaylist);
@@ -63,6 +72,8 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
 
     musicList->installEventFilter(this);
 
+    ui->menuParametres->addAction("Sauvegarder", this, &QticallyMainWindow::save);
+    ui->menuParametres->addAction("Ouvrir", this, &QticallyMainWindow::open);
 
 
 }
@@ -127,7 +138,8 @@ void QticallyMainWindow::addMusic()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Music"), "", tr("Music Files (*.mp3 *.wav)"));
     if (!fileName.isEmpty())
     {
-        QString musicName = QFileInfo(fileName).baseName();
+        QFileInfo fileInfo(fileName);
+        QString musicName = fileInfo.completeBaseName();
         QListWidgetItem* item = new QListWidgetItem(musicName);
         item->setData(Qt::UserRole, fileName);
         musicList->addItem(item);
@@ -139,9 +151,10 @@ void QticallyMainWindow::addMusic()
 
         selectedMusicName = musicName;
         selectedMusicImage = defaultImage;
+
+        qDebug() << "Music added: " << musicName;
     }
 }
-
 
 
 void QticallyMainWindow::playSelectedMusic()
@@ -265,43 +278,26 @@ void QticallyMainWindow::updateMusicName(const QString &oldName, const QString &
         musicNameLabel->setText(newName);
     }
 
-    // Mettre à jour la carte musicMap avec le nouveau nom de musique
-    QMap<QString, QString>::iterator it = musicMap.begin();
-    while (it != musicMap.end()) {
-        if (it.value().endsWith(oldName)) {
-            QString newFilePath = it.value();
-            newFilePath.replace(oldName, newName);
-            it.value() = newFilePath;
-            ++it;
-        } else {
-            ++it;
-        }
+    QMap<QString, QString>::iterator it = musicMap.find(oldName);
+    if (it != musicMap.end()) {
+        it.value() = newName;
     }
 
-    // Mettre à jour également selectedMusicName si la musique sélectionnée est celle modifiée
     if (selectedMusicName == oldName) {
         selectedMusicName = newName;
     }
 
-    // Mettre à jour la musique personnalisée si elle existe
     if (customMusicImageMap.contains(oldName)) {
         QPixmap image = customMusicImageMap.value(oldName);
         customMusicImageMap.remove(oldName);
         customMusicImageMap.insert(newName, image);
     }
 
-    // Mettre à jour la musique dans musicImageMap si elle existe
-    QMap<QString, QPixmap>::iterator it2 = musicImageMap.begin();
-    while (it2 != musicImageMap.end()) {
-        if (it2.key().endsWith(oldName)) {
-            QString newFilePath = it2.key();
-            newFilePath.replace(oldName, newName);
-            it2.value() = musicImageMap.value(newFilePath);
-            ++it2;
-        } else {
-            ++it2;
-        }
+    QMap<QString, QPixmap>::iterator it2 = musicImageMap.find(oldName);
+    if (it2 != musicImageMap.end()) {
+        it2.value() = newName;
     }
+
 }
 
 
@@ -341,7 +337,7 @@ void QticallyMainWindow::importPlaylist()
 
                     if (fileInfo.exists())
                     {
-                        QString musicName = fileInfo.baseName();
+                        QString musicName = fileInfo.completeBaseName();
                         QListWidgetItem* item = new QListWidgetItem(musicName);
                         item->setData(Qt::UserRole, fileInfo.absoluteFilePath());
                         musicList->addItem(item);
@@ -396,3 +392,140 @@ bool QticallyMainWindow::eventFilter(QObject *obj, QEvent *event)
 
     return QMainWindow::eventFilter(obj, event);
 }
+
+
+void QticallyMainWindow::saveState(const QString &filename)
+{
+    QJsonArray musicArray;
+
+    for (int i = 0; i < musicList->count(); ++i)
+    {
+        QListWidgetItem *item = musicList->item(i);
+        QJsonObject musicObject;
+        musicObject["name"] = item->text();
+        musicObject["filePath"] = item->data(Qt::UserRole).toString();
+
+        // Vérifier si l'image actuelle est la même que l'image par défaut
+        if (customMusicImageMap.contains(item->text()) && customMusicImageMap[item->text()] != defaultImage)
+        {
+            QBuffer buffer;
+            buffer.open(QIODevice::WriteOnly);
+            customMusicImageMap[item->text()].save(&buffer, "PNG");
+            musicObject["image"] = QJsonValue(QString(buffer.data().toBase64()));
+            buffer.close();
+        }
+
+        musicArray.append(musicObject);
+    }
+
+    QJsonObject settingsObject;
+    settingsObject["repeatEnabled"] = repeatEnabled;
+    settingsObject["shuffleEnabled"] = shuffleEnabled;
+
+    QJsonObject stateObject;
+    stateObject["musicArray"] = musicArray;
+    stateObject["settings"] = settingsObject;
+
+    QJsonDocument jsonDoc(stateObject);
+
+    QFile file(filename);
+    if (file.open(QIODevice::WriteOnly))
+    {
+        file.write(jsonDoc.toJson());
+        file.close();
+    }
+    else
+    {
+        QMessageBox::warning(this, "Erreur", "Impossible d'enregistrer la sauvegarde.");
+    }
+}
+
+
+
+void QticallyMainWindow::loadState(const QString &filename)
+{
+    QFile file(filename);
+    if (file.open(QIODevice::ReadOnly))
+    {
+        QByteArray jsonData = file.readAll();
+        file.close();
+
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+        if (!jsonDoc.isNull() && jsonDoc.isObject())
+        {
+            QJsonObject stateObject = jsonDoc.object();
+
+            QJsonArray musicArray = stateObject["musicArray"].toArray();
+            musicList->clear();
+            for (const QJsonValue &musicValue : musicArray)
+            {
+                if (musicValue.isObject())
+                {
+                    QJsonObject musicObject = musicValue.toObject();
+
+                    QString musicName = musicObject["name"].toString();
+                    QString filePath = musicObject["filePath"].toString();
+
+                    QListWidgetItem *item = new QListWidgetItem(musicName);
+                    item->setData(Qt::UserRole, filePath);
+                    musicList->addItem(item);
+
+                    QPixmap image;
+                    if (musicObject.contains("image"))
+                    {
+                        QByteArray imageData = QByteArray::fromBase64(musicObject["image"].toString().toLatin1());
+                        image.loadFromData(imageData);
+                    }
+                    else
+                    {
+                        image = defaultImage;
+                    }
+                    customMusicImageMap.insert(musicName, image);
+                    musicImageMap.insert(filePath, image);
+                }
+            }
+
+            QJsonObject settingsObject = stateObject["settings"].toObject();
+            repeatEnabled = settingsObject["repeatEnabled"].toBool();
+            shuffleEnabled = settingsObject["shuffleEnabled"].toBool();
+
+            ui->pushButton_repeat->setChecked(repeatEnabled);
+            ui->pushButton_shuffle->setChecked(shuffleEnabled);
+        }
+        else
+        {
+            QMessageBox::warning(this, "Erreur", "Le fichier de sauvegarde est invalide.");
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier de sauvegarde.");
+    }
+}
+
+void QticallyMainWindow::save()
+{
+    QString defaultFileName = QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
+    QString fileName = QFileDialog::getSaveFileName(this, "Sauvegarder", defaultFileName, "Fichiers de sauvegarde (*.json)");
+
+    if (!fileName.isEmpty())
+    {
+        if (!fileName.endsWith(".json", Qt::CaseInsensitive)) {
+            fileName += ".json";
+        }
+        saveState(fileName);
+    }
+}
+
+void QticallyMainWindow::open()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Ouvrir", "", "Fichiers de sauvegarde (*.json)");
+    if (!fileName.isEmpty())
+    {
+        loadState(fileName);
+    }
+}
+
+
+
+
