@@ -57,6 +57,7 @@ private:
     QMenu *contextMenu;
     QString selectedMusicImagePath;
     QPixmap defaultImage;
+    QLineEdit *searchBar;
 
 
 
@@ -74,6 +75,9 @@ private slots:
     void handleMediaStatusChanged(QMediaPlayer::MediaStatus status);
     void showSettingsDialog();
     void importPlaylist();
+    void keyPressEvent(QKeyEvent *event) override;
+    void sliderPressed();
+    void filterMusicList();
 
 
 

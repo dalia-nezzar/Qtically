@@ -45,6 +45,7 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
     connect(musicSlider, &QSlider::sliderMoved, this, [=](int position) {
         player->setPosition(position);
     });
+    connect(musicSlider, &QSlider::sliderPressed, this, &QticallyMainWindow::sliderPressed);
 
     timeElapsedLabel = ui->timeElapsedLabel;
     totalTimeLabel = ui->totalTimeLabel;
@@ -74,6 +75,11 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
 
     ui->menuParametres->addAction("Sauvegarder", this, &QticallyMainWindow::save);
     ui->menuParametres->addAction("Ouvrir", this, &QticallyMainWindow::open);
+
+    searchBar = ui->searchBar;
+    connect(searchBar, &QLineEdit::textChanged, this, &QticallyMainWindow::filterMusicList);
+
+
 
 
 }
@@ -200,6 +206,7 @@ void QticallyMainWindow::playMusic()
         isPlaying = false;
         ui->pushButton_play->setIcon(QIcon(":/images/images/play.png"));
     }
+    setFocus();
 }
 
 void QticallyMainWindow::nextMusic()
@@ -526,6 +533,49 @@ void QticallyMainWindow::open()
     }
 }
 
+void QticallyMainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Space || event->key() == Qt::Key_Return) {
+        playMusic();
+    } else if (event->key() == Qt::Key_Left) {
+        int currentPosition = player->position();
+        int newPosition = currentPosition - 10000;
+        if (newPosition >= 0) {
+            player->setPosition(newPosition);
+        }
+    } else if (event->key() == Qt::Key_Right) {
+        int currentPosition = player->position();
+        int newPosition = currentPosition + 10000;
+        if (newPosition <= player->duration()) {
+            player->setPosition(newPosition);
+        }
+    }
+    QMainWindow::keyPressEvent(event);
+}
 
 
+void QticallyMainWindow::sliderPressed()
+{
+    int position = musicSlider->value();
+    player->setPosition(position);
+    updateTimeLabels();
+}
+
+
+void QticallyMainWindow::filterMusicList()
+{
+    QString filter = searchBar->text();
+    for (int i = 0; i < musicList->count(); ++i)
+    {
+        QListWidgetItem *item = musicList->item(i);
+        if (item->text().contains(filter, Qt::CaseInsensitive))
+        {
+            item->setHidden(false);
+        }
+        else
+        {
+            item->setHidden(true);
+        }
+    }
+}
 

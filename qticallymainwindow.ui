@@ -107,6 +107,22 @@
       </widget>
      </item>
      <item>
+      <widget class="QLineEdit" name="searchBar">
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Rechercher une musique....</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QListWidget" name="listWidget">
        <property name="styleSheet">
         <string notr="true">QListWidget {
@@ -294,7 +310,7 @@ subcontrol-origin: margin;
     <property name="geometry">
      <rect>
       <x>560</x>
-      <y>60</y>
+      <y>40</y>
       <width>711</width>
       <height>81</height>
      </rect>
