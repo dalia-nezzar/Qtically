@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QListWidget>
 #include <QLabel>
+#include <QSystemTrayIcon>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QticallyMainWindow; }
@@ -58,6 +59,7 @@ private:
     QString selectedMusicImagePath;
     QPixmap defaultImage;
     QLineEdit *searchBar;
+    QSystemTrayIcon *trayIcon;
 
 
 
@@ -78,6 +80,8 @@ private slots:
     void keyPressEvent(QKeyEvent *event) override;
     void sliderPressed();
     void filterMusicList();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+
 
 
 

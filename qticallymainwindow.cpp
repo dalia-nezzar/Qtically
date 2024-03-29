@@ -12,6 +12,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QBuffer>
+#include <QSystemTrayIcon>
 
 
 QticallyMainWindow::QticallyMainWindow(QWidget *parent)
@@ -80,6 +81,14 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
     connect(searchBar, &QLineEdit::textChanged, this, &QticallyMainWindow::filterMusicList);
 
 
+    // Préparation des notifications
+
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setIcon(QIcon(":/images/images/OIP.jpeg"));
+    trayIcon->setToolTip("Qtically");
+    trayIcon->show();
+
+    connect(trayIcon, &QSystemTrayIcon::activated, this, &QticallyMainWindow::iconActivated);
 
 
 }
@@ -105,6 +114,17 @@ void QticallyMainWindow::handleMediaStatusChanged(QMediaPlayer::MediaStatus stat
         } else {
             nextMusic();
         }
+    }
+}
+
+void QticallyMainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+        break;
+    default:
+        ;
     }
 }
 
@@ -188,6 +208,9 @@ void QticallyMainWindow::playSelectedMusic()
         ui->pushButton_play->setIcon(QIcon(":/images/images/pause.png"));
 
         ui->pushButton_edit->setEnabled(true);
+
+        QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+        trayIcon->showMessage("Qtically", "En train de jouer : " + musicName, icon, 5000);
     }
 }
 
