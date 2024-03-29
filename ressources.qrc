@@ -8,5 +8,7 @@
         <file>images/previous.png</file>
         <file>images/play.png</file>
         <file>images/pause.png</file>
+        <file>images/logo_qtically.png</file>
+        <file>images/background.png</file>
     </qresource>
 </RCC>

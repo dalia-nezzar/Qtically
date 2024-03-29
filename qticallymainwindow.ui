@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1298</width>
-    <height>663</height>
+    <height>760</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -19,113 +19,27 @@
   <property name="minimumSize">
    <size>
     <width>1298</width>
-    <height>663</height>
+    <height>760</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1298</width>
-    <height>663</height>
+    <height>806</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Qtically</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="ressources.qrc">
+    <normaloff>:/images/images/logo_qtically.png</normaloff>:/images/images/logo_qtically.png</iconset>
+  </property>
   <property name="autoFillBackground">
-   <bool>false</bool>
-  </property>
-  <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonIconOnly</enum>
-  </property>
-  <property name="animated">
    <bool>true</bool>
   </property>
-  <property name="tabShape">
-   <enum>QTabWidget::Triangular</enum>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>491</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton_add_music">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-      background-color: #3A3A3A;
-      color: #E0E0E0;
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    QPushButton:hover {
-      background-color: #4A4A4A;
-    }
-
-    QPushButton:pressed {
-      background-color: #6A5ACD;
-      color: #E0E0E0;
-    }</string>
-       </property>
-       <property name="text">
-        <string>Ajouter une musique</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_import_playlist">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-      background-color: #3A3A3A;
-      color: #E0E0E0;
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    QPushButton:hover {
-      background-color: #4A4A4A;
-    }
-
-    QPushButton:pressed {
-      background-color: #6A5ACD;
-      color: #E0E0E0;
-    }</string>
-       </property>
-       <property name="text">
-        <string>Ajouter une playlist</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="searchBar">
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>Rechercher une musique....</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QListWidget" name="listWidget">
-       <property name="styleSheet">
-        <string notr="true">QListWidget {
+  <property name="styleSheet">
+   <string notr="true">QListWidget#listWidget {
 border-radius: 10px;
 background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #3A3A3A, stop: 1 #6A5ACD);
 color: #E0E0E0;
@@ -146,40 +60,238 @@ QListWidget::item:selected {
     color: #E0E0E0;
 }
 
-QScrollBar {
-background-color: #222222;
-width: 10px;
-margin: 0px 0px 0px 0px;
+QListWidget::scrollBar:vertical {
+    background-color: #222222;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
 }
 
-QScrollBar::handle {
-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
-min-height: 20px;
+QListWidget::scrollBar:vertical::handle {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    min-height: 20px;
 }
 
-QScrollBar::add-line {
-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
-height: 10px;
-subcontrol-position: bottom;
-subcontrol-origin: margin;
+QListWidget::scrollBar:vertical::add-line {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    height: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
 }
 
-QScrollBar::sub-line {
-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
-height: 10px;
-subcontrol-position: top;
-subcontrol-origin: margin;
+QListWidget::scrollBar:vertical::sub-line {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    height: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+
+
+QWidget#centralwidget {
+	background-image: url(:/images/images/background.png);
 }</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonFollowStyle</enum>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Triangular</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1298</width>
+     <height>760</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1298</width>
+     <height>760</height>
+    </size>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>491</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="searchBar">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit#searchBar {
+    background-color: #e0def8; /* couleur de fond légèrement violette */
+    border-radius: 50px; /* bordures arrondies */
+    padding: 5px 15px; /* espace intérieur */
+    font-size: 16px; /* taille de la police */
+    color: #3a2d65; /* couleur du texte */
+    border: 2px solid #3a2d65; /* bordure solide violette */
+    selection-background-color: #6a5acd; /* couleur de fond de la sélection */
+    selection-color: white; /* couleur du texte sélectionné */
+}
+
+QLineEdit#searchBar:focus {
+    border: 2px solid #6a5acd; /* bordure solide violette plus foncée lorsque la barre de recherche est sélectionnée */
+}
+
+QLineEdit#searchBar::placeholder {
+    color: #8c7da9; /* couleur du texte du placeholder */
+}
+</string>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Rechercher une musique....</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget">
+       <property name="styleSheet">
+        <string notr="true">QListWidget#listWidget {
+border-radius: 10px;
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #3A3A3A, stop: 1 #6A5ACD);
+color: #E0E0E0;
+selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6A5ACD, stop: 1 #8C78FF);
+selection-color: #E0E0E0;
+}
+
+QListWidget::item {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #4A4A4A;
+    color: #E0E0E0;
+    text-align: center;
+}
+
+QListWidget::item:selected {
+    background-color: #6A5ACD;
+    color: #E0E0E0;
+}
+
+QListWidget::scrollBar:vertical {
+    background-color: #222222;
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+QListWidget::scrollBar:vertical::handle {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    min-height: 20px;
+}
+
+QListWidget::scrollBar:vertical::add-line {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    height: 10px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QListWidget::scrollBar:vertical::sub-line {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #555555, stop: 1 #6A5ACD);
+    height: 10px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_add_music">
+       <property name="styleSheet">
+        <string notr="true">QPushButton#pushButton_add_music {
+    background-color: #3A3A3A;
+    color: #E0E0E0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton#pushButton_add_music:hover {
+    background-color: #4A4A4A;
+}
+
+QPushButton#pushButton_add_music:pressed {
+    background-color: #6A5ACD;
+    color: #E0E0E0;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Ajouter une musique</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_import_playlist">
+       <property name="styleSheet">
+        <string notr="true">QPushButton#pushButton_import_playlist {
+    background-color: rgb(26, 95, 180);
+    color: #E0E0E0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton#pushButton_import_playlist:hover {
+    background-color: #8C78FF;
+}
+
+QPushButton#pushButton_import_playlist:pressed {
+    background-color: #3A3A3A;
+    color: #E0E0E0;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Ajouter une playlist</string>
        </property>
       </widget>
      </item>
     </layout>
+    <zorder>listWidget</zorder>
+    <zorder>searchBar</zorder>
+    <zorder>pushButton_add_music</zorder>
+    <zorder>pushButton_import_playlist</zorder>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>1080</x>
-      <y>560</y>
+      <y>680</y>
       <width>131</width>
       <height>20</height>
      </rect>
@@ -224,7 +336,7 @@ subcontrol-origin: margin;
     <property name="geometry">
      <rect>
       <x>1220</x>
-      <y>420</y>
+      <y>540</y>
       <width>45</width>
       <height>111</height>
      </rect>
@@ -310,9 +422,9 @@ subcontrol-origin: margin;
     <property name="geometry">
      <rect>
       <x>560</x>
-      <y>40</y>
+      <y>130</y>
       <width>711</width>
-      <height>81</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="font">
@@ -341,8 +453,8 @@ subcontrol-origin: margin;
     </property>
     <property name="geometry">
      <rect>
-      <x>1070</x>
-      <y>150</y>
+      <x>1080</x>
+      <y>250</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -374,7 +486,7 @@ subcontrol-origin: margin;
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>420</y>
+      <y>540</y>
       <width>561</width>
       <height>136</height>
      </rect>
@@ -582,24 +694,31 @@ QSlider::sub-page:vertical {
    <widget class="QFrame" name="musicImageFrame">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>130</y>
+      <x>820</x>
+      <y>250</y>
       <width>251</width>
       <height>251</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">QFrame#musicImageFrame {
-    border-radius: 125px;
+    border-radius: 50px;
     background-color: transparent;
 }
-</string>
+
+QLabel#musicImageLabel {
+    border-radius: 50px;
+    alignment: Qt::AlignCenter;
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+     <enum>QFrame::Plain</enum>
     </property>
     <widget class="QLabel" name="musicImageLabel">
      <property name="geometry">
@@ -656,6 +775,69 @@ QSlider::sub-page:vertical {
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>516</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="logo">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <stylestrategy>PreferDefault</stylestrategy>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="ressources.qrc">:/images/images/logo_qtically.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="slogan">
+       <property name="font">
+        <font>
+         <family>Lato Semibold</family>
+         <pointsize>15</pointsize>
+         <weight>50</weight>
+         <italic>true</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Qtically, votre musique, open source.</string>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>pushButton_edit</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>musicImageFrame</zorder>
+   <zorder>musicNameLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -666,11 +848,33 @@ QSlider::sub-page:vertical {
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuParametres">
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="qticallyParam">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
     <property name="title">
-     <string>Paramètres</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="ressources.qrc">
+      <normaloff>:/images/images/logo_qtically.png</normaloff>:/images/images/logo_qtically.png</iconset>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>false</bool>
     </property>
    </widget>
+   <widget class="QMenu" name="menuParametres">
+    <property name="title">
+     <string>Session</string>
+    </property>
+   </widget>
+   <addaction name="qticallyParam"/>
    <addaction name="menuParametres"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

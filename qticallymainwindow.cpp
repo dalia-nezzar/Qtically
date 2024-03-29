@@ -23,6 +23,17 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    setWindowIcon(QIcon(":/images/images/logo_qtically.png"));
+
+    setFixedSize(size());
+    Qt::WindowFlags flags = windowFlags();
+    flags &= ~Qt::WindowMaximizeButtonHint;
+    setWindowFlags(flags);
+
+
+
+
+
     player = new QMediaPlayer(this);
     musicList = ui->listWidget;
 
@@ -84,7 +95,7 @@ QticallyMainWindow::QticallyMainWindow(QWidget *parent)
     // Préparation des notifications
 
     trayIcon = new QSystemTrayIcon(this);
-    trayIcon->setIcon(QIcon(":/images/images/OIP.jpeg"));
+    trayIcon->setIcon(QIcon(":/images/images/logo_qtically.png"));
     trayIcon->setToolTip("Qtically");
     trayIcon->show();
 
